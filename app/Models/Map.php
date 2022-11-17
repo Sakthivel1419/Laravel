@@ -15,9 +15,9 @@ class Map extends Model
         'company_id'
     ];
 
-    // public function company() {
-    //     return $this->belongsTo(Company::class);
-    // }
+    public function company() {
+        return $this->belongsTo(Company::class,'company_id');
+    }
 
     // public function users() {
     //     return $this->belongsTo(User::class);

@@ -13,29 +13,33 @@ class ProductController extends Controller
 
         if(Auth::user()->role == 2) {
 
+
             $product = Product::join('maps','maps.company_id', '=', 'products.company_id')
                             ->where( 'maps.user_id',Auth::user()->id)
                             ->get();
+            return view('Products.product',['product' => $product]);
+
         } else {
             $product = Product::all();
             $company = Company::all();
             return view('Products.product',['product' => $product,'company' => $company]);
         }
         
-        return view('Products.product',['product' => $product]);
     }
 
     public function store(Request $request) {
         $request->validate([
             'name' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'quantity' => 'required'
         ]);
 
         // $company = Company::all();
         $product = Product::create([
             'company_id' =>$request->input('company_id'),
             'name' => $request->input('name'),
-            'price' => $request->input('price')
+            'price' => $request->input('price'),
+            'quantity' => $request->input('quantity')
         ]);
 
         $product->save();
