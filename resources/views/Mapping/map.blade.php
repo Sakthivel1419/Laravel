@@ -43,8 +43,6 @@ list-style-type: none;
         <div class="col-8">
             
             <h1>User List</h1>
-            {{-- <form  action="{{ url('/mapping_store') }}" method="POST">
-            @csrf --}}
                 <div class="row">
                     @foreach($users as $user)    
                         <div class="col-sm-4">
@@ -53,9 +51,17 @@ list-style-type: none;
                                     <h5 class="card-title ui-state-highlight text-center">{{$user->name}}</h5>
                                 </div>
                                 <ul class="users_company_list" data-user_id="{{ $user->id }}">
+                                   
+                                    @foreach($map as $data)
+                                    @if($user->id == $data->user_id)
+                                    <div class="card-body" id="">{{ $data['company']['name'] }}</div>
+                                    @endif                                    
+                                    @endforeach
+
                                     <div class="card-body drop-able" id="unorder1"></div>
                                 </ul>  
                             </div>
+                            <br>
                         </div>
                     @endforeach
                 </div>
@@ -66,7 +72,6 @@ list-style-type: none;
                         <i class="fas fa-check mr-2"></i>Save</button>
                     </div>
                 </div>
-            {{-- </form>           --}}
         </div>
     </div>
 </div>
@@ -129,29 +134,6 @@ $(".drop-able").droppable({
 
   },
 });
-
-// function byText(a, b) {
-//   return $(a).text().localeCompare($(b).text())
-// }
-
-
-// function myFunction() {
-// console.log("inner");
-
-// $('.card').each((index, value) =>    {        
-//     var title = $(value).find('.card-header').text();        
-//     console.log(title);        
-//     $(value).find('.card-body').each((textIndex, textValue) =>        {    
-//         var cardtext = $(textValue).text();
-//         console.log(cardtext);});});
-// }
-//     $( function() {
-//     $( "#unorder, #unorder1" ).sortable({
-//         appendTo: 'body',
-//         helper: 'clone',
-//       connectWith: ".connecultedSortable"
-//     }).disableSelection();
-//   } );
   
 </script>
 

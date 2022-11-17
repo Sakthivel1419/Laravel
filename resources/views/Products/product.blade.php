@@ -19,10 +19,9 @@
         <tr>
             <th class="border-bottom" width="11%">S.No</th>
             <th class="border-bottom" width="16%">Product Name </th>
+            <th class="border-bottom" width="16%">Company Name </th>
             <th class="border-bottom" width="16%">Price</th>
-            {{-- <th class="border-bottom" width="16%">Price</th> --}}
-            {{-- <th class="border-bottom" width="16%">Password</th> --}}
-            {{-- <th class="border-bottom" width="6%">Action</th> --}}
+            <th class="border-bottom" width="16%">Qty</th>
         </tr>
     </thead>
     <tbody id="records">
@@ -30,8 +29,10 @@
             <tr>
                 <td>{{ $key+1 }}</td>
                 <td>{{ $data->name }}</td>
-                <td>{{ $data->price }}</td>
-                {{-- <td>{{ $data->password }}</td> --}}
+                <td>{{ $data['company']['name'] }}</td>
+                <td>${{ number_format($data->price, 2) }}</td>
+                <td>{{ $data->quantity }}</td>
+
             </tr>
         @endforeach
     </tbody>
@@ -60,6 +61,12 @@
                         <div class="form-group col-sm-10">
                             <label class="mb-0">Price <span class="text-danger">*</span></label>
                             <input type="text" id="price" name="price"  value="" class="form-control form-control-sm"  />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <label class="mb-0">Quantity <span class="text-danger">*</span></label>
+                            <input type="text" id="quantity" name="quantity"  value="" class="form-control form-control-sm"  />
                         </div>
                     </div>
                     @if(Auth::user()->role == 1)

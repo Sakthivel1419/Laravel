@@ -52,14 +52,14 @@
                     <div class="row">
                         <div class="form-group col-sm-10">
                             <label class="mb-0">Name <span class="text-danger">*</span></label>
-                            <input type="text" id="user_name" name="name"  value="" class="form-control form-control-sm"  />
+                            <input type="text" id="user_name" name="name" class="form-control form-control-sm"  />
                             <span id="company_name_error" class="invalid"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-10">
                             <label class="mb-0">Email <span class="text-danger">*</span></label>
-                            <input type="text" id="email_add" name="email"  value="" class="form-control form-control-sm"/>
+                            <input type="email" id="email_add" name="email" class="form-control form-control-sm" autocomplete="off"/>
                             <span id="email_error" class="invalid" style="font-weight: bold;"></span>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                     <div class="row">
                         <div class="form-group col-sm-10">
                             <label class="mb-0">Password <span class="text-danger">*</span></label>
-                            <input type="text" id="pass" name="password"  value="" class="form-control form-control-sm"/>
+                            <input type="password" id="password" name="password" class="form-control form-control-sm" autocomplete="new-password"/>
                         </div>
                     </div>
 

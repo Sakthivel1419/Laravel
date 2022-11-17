@@ -47,13 +47,9 @@
 </div>
 
 
-<!-- <script src="https://raw.githubusercontent.com/nnnick/Chart.js/master/dist/Chart.bundle.js"></script>   -->
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script> -->
 
 <div>
 <script>
-    // DATA FROM PHP TO JAVASCRIPT
     const labels = {!! json_encode($labels) !!};
     const data = {!! json_encode($data) !!};
     const max_price1 = {!! json_encode($max_price) !!};
@@ -71,7 +67,7 @@
         data: {
             labels: labels, // <======= Here I set the x-axis
             datasets: [{
-                label: '# of Votes',
+                label: '# Product Price',
                 data: data, // <======= Here I set the y-axis
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',

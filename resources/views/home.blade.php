@@ -7,11 +7,16 @@
 <!-- Bootstrap CDN -->
 <link href="https://bootswatch.com/4/cosmo/bootstrap.min.css" rel="stylesheet" />
 
+
+
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+
+{{-- <script src="{{asset('js/views/home.js')}}"></script> --}}
+
 
 
 
@@ -41,36 +46,37 @@
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
               <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
-                  
-                <a href="{{ url('/dashboard') }}" class="list-group-item list-group-item-action py-2 ripple">
-                    <i class="fas fa-chart-area fa-fw me-3"></i><span>Dashboard</span>
-                </a>
 
-                <a href="{{ url('/company') }}" class="list-group-item list-group-item-action py-2 ripple">
-                    <i class="fas fa-lock fa-fw me-3"></i><span>Company</span>
-                </a>
-                @if(Auth::user()->role == 1)
-                  <a href="{{ url('/users') }}" class="list-group-item list-group-item-action py-2 ripple">
-                      <i  class="fas fa-chart-line fa-fw me-3"></i><span>Users</span>
+                  <a href="{{ url('/dashboard') }}" class="list-group-item list-group-item-action py-2 ripple {{ (\Request::path() == 'dashboard') ? "active" : ""  }}">
+                      <i class="fas fa-chart-area fa-fw me-3"></i><span>Dashboard</span>
                   </a>
-                @endif
 
-                <a href="{{ url('/products') }}" class="list-group-item list-group-item-action py-2 ripple">
-                    <i class="fas fa-chart-pie fa-fw me-3"></i><span>Products</span>
-                </a>
-                
-                @if(Auth::user()->role == 1)
-                  <a href="{{ url('/mapping') }}" class="list-group-item list-group-item-action py-2 ripple">
-                      <i  class="fas fa-chart-bar fa-fw me-3"></i><span>Mapping</span>
+                  <a href="{{ url('/company') }}" id="companyId" class="list-group-item list-group-item-action py-2 ripple {{ (\Request::path() == 'company') ? "active" : ""  }} ">
+                      <i class="fas fa-lock fa-fw me-3"></i><span>Company</span>
                   </a>
-                @endif
+
+                  @if(Auth::user()->role == 1)
+                    <a href="{{ url('/users') }}" class="list-group-item list-group-item-action py-2 ripple {{ (\Request::path() == 'users') ? "active" : ""  }}">
+                        <i  class="fas fa-chart-line fa-fw me-3"></i><span>Users</span>
+                    </a>
+                  @endif
+
+                  <a href="{{ url('/products') }}" class="list-group-item list-group-item-action py-2 ripple {{ (\Request::path() == 'products') ? "active" : ""  }}">
+                      <i class="fas fa-chart-pie fa-fw me-3"></i><span>Products</span>
+                  </a>
+
+                  @if(Auth::user()->role == 1)
+                    <a href="{{ url('/mapping') }}" class="list-group-item list-group-item-action py-2 ripple {{ (\Request::path() == 'mapping') ? "active" : ""  }}">
+                        <i  class="fas fa-chart-bar fa-fw me-3"></i><span>Mapping</span>
+                    </a>
+                  @endif
                 </div>
               </div>
             </nav>
             <!-- Sidebar -->
 
             <!-- Navbar -->
-            <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-blue fixed-top">
 
               <!-- Container wrapper -->
               <div class="container-fluid">
@@ -84,9 +90,10 @@
                 <!-- Brand -->
                 {{-- <a class="navbar-brand" href="{{ url('/') }}"> --}}
                 <a class="navbar-brand">
-                    {{ config('app.name', 'Demo App') }}
+                    {{-- {{ config('app.name', 'Demo App') }} --}}
+                    <img src="{{asset('/js/images/demo_Icon.png')}}"/>
+
                 </a>
-                
                 
                 <!-- Right links -->
                 <ul class="navbar-nav ms-auto d-flex flex-row">
@@ -132,4 +139,6 @@
         {{-- </div> --}}
     </div>
 </div>
+
+
 @endsection
