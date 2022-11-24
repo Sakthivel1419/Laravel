@@ -47,7 +47,7 @@ Route::get('/products',[ProductController::class,'index']);
 Route::post('/product_store',[ProductController::class,'store']);
 
 //Mapping
-Route::get('/mapping',[MapController::class, 'index']);
+Route::get('/mapping',[MapController::class, 'index'])->name('mapping');
 
 Route::post('/mapping_store',[MapController::class,'store'])->name('mapping_store');
 

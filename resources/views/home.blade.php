@@ -76,7 +76,7 @@
             <!-- Sidebar -->
 
             <!-- Navbar -->
-            <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-blue fixed-top">
+            <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
 
               <!-- Container wrapper -->
               <div class="container-fluid">

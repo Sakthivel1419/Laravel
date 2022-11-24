@@ -38,5 +38,14 @@ class CompanyController extends Controller
         $company->save();
 
         return redirect('/company');
+
+        // $user       =       User::create($userArray);
+        // if(!is_null($company)) { 
+        //     return back()->with("success", "Registration completed successfully");
+        // }
+
+        // else {
+        //     return back()->with("failed", "Registration failed. Try again.");
+        // }
     }
 }

@@ -1,6 +1,14 @@
 @extends('home')
 
 @section('home-content')
+
+<style>
+    label.error {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+
 <h5 class="mb-2">User List</h5>
 <div class="row mb-1">
     <div class="col-sm-5">
@@ -47,20 +55,18 @@
             <div class="modal-body">
                 <div id="success" class="text-center justify-align-center alert alert-success alert-dismissible d-none" role="alert"></div>
                 {{-- <form  id="companyInfo" name="companyInfo"> --}}
-                <form  action="{{ url('/user_store') }}" method="POST">
+                <form  action="{{ url('/user_store') }}" method="POST" id="userForm">
                     @csrf
                     <div class="row">
                         <div class="form-group col-sm-10">
                             <label class="mb-0">Name <span class="text-danger">*</span></label>
                             <input type="text" id="user_name" name="name" class="form-control form-control-sm"  />
-                            <span id="company_name_error" class="invalid"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-10">
                             <label class="mb-0">Email <span class="text-danger">*</span></label>
                             <input type="email" id="email_add" name="email" class="form-control form-control-sm" autocomplete="off"/>
-                            <span id="email_error" class="invalid" style="font-weight: bold;"></span>
                         </div>
                     </div>
 

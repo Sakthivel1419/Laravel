@@ -98,7 +98,7 @@
                 y: {
                     beginAtZero: true,
                     stepSize : 1000,
-                    max:maxValue+1000
+                    max:maxValue+4000
                 }
             }
         }

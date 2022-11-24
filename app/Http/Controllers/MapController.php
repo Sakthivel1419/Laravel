@@ -19,7 +19,7 @@ class MapController extends Controller
         $users = User::all();
         $map = Map::all();
 
-        return view('Mapping.map',[
+        return view('Mapping.test',[
             'com' => $com,
             'users' => $users,
             'map' => $map
@@ -28,6 +28,7 @@ class MapController extends Controller
     public function store(Request $request) {
 
         $userIdArr = $request->userIdArr;
+        // dd($userIdArr);
         
         foreach($userIdArr as $key => $value) {
             if($value !== null){
@@ -37,12 +38,12 @@ class MapController extends Controller
                     $map->user_id = $key;
                     $map->company_id = $arr;
                     $map->save();
+
                 }
+                return ["error" => false];
                 
             }  
         }
-
-        return redirect('/mapping');
 
         // return view('Mapping.map');
 

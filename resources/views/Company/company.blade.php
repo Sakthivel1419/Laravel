@@ -1,6 +1,14 @@
 @extends('home')
 
 @section('home-content')
+
+<style>
+    label.error {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+
 <h5 class="mb-2">Company List</h5>
 <div class="row mb-1">
     <div class="col-sm-5">
@@ -57,19 +65,18 @@
             <div class="modal-body">
                 <div id="success" class="text-center justify-align-center alert alert-success alert-dismissible d-none" role="alert"></div>
                 {{-- <form  id="companyInfo" name="companyInfo"> --}}
-                <form  action="{{ url('/store') }}" method="POST">
+                <form  action="{{ url('/store') }}" method="POST" id="companyInfo">
                     @csrf
                     <div class="row">
                         <div class="form-group col-sm-10">
                             <label class="mb-0">Company Name <span class="text-danger">*</span></label>
                             <input type="text" id="com_name" name="name"  value="" class="form-control form-control-sm"  />
-                            <span id="company_name_error" class="invalid"></span>
                         </div>
                     </div>
                     <div class="row">
                             <div class="form-group col-sm-10">
                                 <label class="mb-0">No.Of.emp <span class="text-danger">*</span></label>
-                                <select id="no_of_emp" name="no_of_emp" class="form-control form-control-sm form-select">
+                                <select name="no_of_emp" class="form-control form-control-sm form-select">
                                     <option value="">--Select No.Of.Emp--</option>
                                     <option value="1">1 to 10</option>
                                     <option value="2">10 to 100</option>

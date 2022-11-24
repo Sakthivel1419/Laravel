@@ -1,6 +1,14 @@
 @extends('home')
 
 @section('home-content')
+
+<style>
+    label.error {
+        color: red;
+        font-size: 14px;
+    }
+</style>
+
 <h5 class="mb-2">Product List</h5>
 <div class="row mb-1">
     <div class="col-sm-5">
@@ -49,7 +57,7 @@
             </div>
             <div class="modal-body">
                 <div id="success" class="text-center justify-align-center alert alert-success alert-dismissible d-none" role="alert"></div>
-                <form  action="{{ url('/product_store') }}" method="POST">
+                <form  action="{{ url('/product_store') }}" method="POST" id="productForm">
                     @csrf
                     <div class="row">
                         <div class="form-group col-sm-10">
