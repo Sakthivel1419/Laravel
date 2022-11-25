@@ -40,7 +40,7 @@
   }
   
   .connected-list .connected-selected:empty:after {
-    content: 'Drap and drop from the list of avaible items or click on the arrow to add them here';
+    content: 'Drag and drop from the list of avaible items or click on the arrow to add them here';
     font-style: italic;
     padding: 1rem;
     text-align: center;

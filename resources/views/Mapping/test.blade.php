@@ -2,8 +2,6 @@
 
 @section('home-content')
 
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <div class="workspace p-4" id="workspace" style="transition: all 0.3s ease 0s; transform: none; opacity: 1;">
     <link href="{{ asset('css/connected.list.css') }}" rel="stylesheet">
@@ -27,7 +25,7 @@
                     
                             <ul id="clVerticals" class="verticals-sortable list-group connected-available ui-sortable">
                                 @foreach( $com as $company)
-                                <li id="" class="list-group-item ui-sortable-handle liclass" data-company_id="{{ $company->id }}">
+                                <li class="list-group-item ui-sortable-handle liclass" data-company_id="{{ $company->id }}">
                                     <div class="media-body">{{ $company->name }}</div>
                                 </li>
                                 @endforeach  
@@ -35,17 +33,21 @@
                         </div>
                         <div class="col-6 col-xl-7 connected-list-group">
                             <div class="row">
-                                @foreach($users as $user)
+                                @foreach($users as $key =>  $user)
+
                                     <div class="col-7 col-lg-6" style="display: block">
                                         <strong class="mb-1 clearfix d-block">{{ $user->name }}</strong>
-                                        <ul id="listCat" data-user_id="{{ $user->id }}" class="accounts_list list-group connected-selected list-group-sm ui-sortable">
-                                            @foreach($map as $data)
-                                                @if($user->id == $data->user_id)
-                                                <li class="list-group-item ui-sortable-handle">
-                                                    {{ $data['company']['name'] }}
+
+                                        <ul id="listUse" data-user_id="{{ $user->id }}" class="accounts_list list-group listUser connected-selected list-group-sm ui-sortable">
+                                            
+                                            @foreach($map as $key => $mapValue)
+                                                @if($mapValue->user_id == $user->id)
+                                                <li class="list-group-item ui-sortable-handle" data-company_id="{{ $mapValue->company_id }}">
+                                                    {{ $mapValue['company']['name'] }}
                                                 </li>
                                                 @endif
                                             @endforeach
+
                                         </ul>
                                     </div> 
                                 @endforeach
@@ -63,42 +65,37 @@
 </div>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
+
 <script type="text/javascript">
 
-    // $(".verticals-sortable").sortable({
-    //     connectWith: "verticals-sortable",
-    //     helper : 'clone',
-    //     start: function(e, info) {
-    //         info.item.siblings(".selectedmulti").appendTo(info.item);
-    //     },
-    //     stop: function(e, info) {
-    //       info.item.after(info.item.find("li"));
-    //       $("li").removeClass('selectedmulti');
-    //     },
-    //     update: function( event, ui ) {
-    //       var categoryIdArr = new Array(); accountIdArr=[],i=0;
-    //       $('.accounts_list').each(function () {
-    //         var cat_id = $(this).data('category_id');
+$('.verticals-sortable li').draggable({
+        appendTo: "body",
+        helper : 'clone',
+        revert: true,
+        revertDuration: 0
 
-    //         $(this).find("li").each(function () {
-    //           accountIdArr[i] = $(this).data('qbo_id');
-    //           i++;
-    //         });
-    //         categoryIdArr[cat_id] = accountIdArr;
-    //         accountIdArr=[],i=0;
-    //       });
+});
 
-    //     }
-    // }).disableSelection();
+$('.listUser').droppable({
+    drop : function (event, ui) {
+        $(this).append(ui.draggable.clone()).children().appendTo(this);
 
-    function myFunction() {
+    }
+});
+
+
+function myFunction() {
     var userIdArr = new Array();
     var companyIdArr = [];
     var i=0;
 
-    $('.users_company_list').each(function() {
+    $('.listUser').each(function() {
         var userId = $(this).data('user_id');
-        console.log(userId);
+        // console.log(userId);
 
 
         $(this).find("li").each(function () {
@@ -121,28 +118,12 @@
             'userIdArr' : userIdArr
         },
         success: function(result) {
-            location.reload();
+            // location.reload();
+            window.location.href = "/mapping";
             console.log('date updated');
         }
     });
-}
-
-$('.company_drag li').draggable({
-        appendTo: "body",
-        cursor: "move",
-        helper : 'clone',
-        revert: true,
-        revertDuration: 0
-
-});
-
-$('.userCompany').droppable({
-    drop : function (event, ui) {
-        $(this).append(ui.draggable.clone()).children().appendTo(this);
-
-    }
-});
-    
+}    
 </script>
 
 @endsection

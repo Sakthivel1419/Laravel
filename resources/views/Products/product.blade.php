@@ -15,7 +15,7 @@
     </div>
     @if(Auth::user()->role==1)
     <div class="col-sm-12 d-flex align-items-center justify-content-end">
-        <button class="btn btn-sm btn-info pull-right" data-toggle="modal" data-target="#addNewProduct" id="newProductClick">
+        <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#addNewProduct" id="newProductClick">
             <i class="fas fa-plus mr-2"></i>New Product
         </button>
     </div>
@@ -30,6 +30,7 @@
             <th class="border-bottom" width="16%">Company Name </th>
             <th class="border-bottom" width="16%">Price</th>
             <th class="border-bottom" width="16%">Qty</th>
+            <th class="border-bottom" width="16%">Action</th>
         </tr>
     </thead>
     <tbody id="records">
@@ -40,7 +41,10 @@
                 <td>{{ $data['company']['name'] }}</td>
                 <td>${{ number_format($data->price, 2) }}</td>
                 <td>{{ $data->quantity }}</td>
-
+                <td>
+                    <button id="editProductDetails" onclick="editProductInfo({{ $data->id }})" value="Submit" type="submit" class="btn btn-sm btn-info">
+                    <i class="fa fa-pencil"></i>Edit</button>
+                </td>
             </tr>
         @endforeach
     </tbody>
@@ -94,6 +98,62 @@
                     <div class="modal-footer">
                         <button id="saveProductDetails" value="Submit"  type="submit" class="btn btn-sm btn-success">
                             <i class="fas fa-check mr-2"></i>Add</button>
+                    </div>
+        
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editProduct" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg-5">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center">
+                <h5 class="mb-0">Edit Product</h5>
+                <button class="btn btn-sm btn-light btn-close cancelEditNewProduct" data-dismiss="modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="success" class="text-center justify-align-center alert alert-success alert-dismissible d-none" role="alert"></div>
+                <form  action="" id="updateProductForm">
+                    @csrf
+                    {{-- <input type="hidden" name="id" id="id" value=""> --}}
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <label class="mb-0">Product Name <span class="text-danger">*</span></label>
+                            <input type="text" id="edit_product" name="name"  value="" class="form-control form-control-sm"  />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <label class="mb-0">Price <span class="text-danger">*</span></label>
+                            <input type="text" id="edit_price" name="price"  value="" class="form-control form-control-sm"  />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <label class="mb-0">Quantity <span class="text-danger">*</span></label>
+                            <input type="text" id="edit_quantity" name="quantity"  value="" class="form-control form-control-sm"  />
+                        </div>
+                    </div>
+                    @if(Auth::user()->role == 1)
+                    <div class="row">
+                        <div class="form-group col-sm-10">
+                            <label class="mb-0">Company <span class="text-danger">*</span></label>
+                            <select id="edit_company" name="company_id" class="form-control form-control-sm form-select">
+                                <option value="">--Select Company--</option>
+                                @foreach ($company as $data )
+                                    <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+
+                    <div class="modal-footer">
+                        <button id="updateProductDetails" value="Submit"  type="submit" class="btn btn-sm btn-success">
+                        <i class="fas fa-check mr-2"></i>Update</button>
                     </div>
         
                 </form>

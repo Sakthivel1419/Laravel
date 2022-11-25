@@ -46,6 +46,11 @@ Route::get('/products',[ProductController::class,'index']);
 
 Route::post('/product_store',[ProductController::class,'store']);
 
+Route::get('/product.edit/{id}',[ProductController::class,'edit'])->name('product.edit');
+
+Route::post('/product.update/{id}',[ProductController::class,'update'])->name('product.update');
+
+
 //Mapping
 Route::get('/mapping',[MapController::class, 'index'])->name('mapping');
 
