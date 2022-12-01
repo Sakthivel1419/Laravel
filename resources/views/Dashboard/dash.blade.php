@@ -17,16 +17,16 @@
 <div class="col-6">
 <h5 class="text-primary font-weight-bold text-center">Company vs Products</h5>
 <br>
-<table class="table table-striped">
+<table class="table">
         <thead>
-            <tr>
+            <tr >
                 <th class="" width="5%" >Company</th>
                 <th class="" width="5%" >Products</th>
             </tr>
         </thead>
         <tbody id="records">
             @foreach ($product_data as $data_table)
-                <tr>
+                <tr class="<?php echo $data_table->deleted_at == null ? '': 'text-danger'?>">
                     <td>{{ $data_table->company_name }}</td>
                     <td>{{ $data_table->name }}</td>
                 </tr>
@@ -98,7 +98,7 @@
                 y: {
                     beginAtZero: true,
                     stepSize : 1000,
-                    max:maxValue+1000
+                    max:maxValue+4000
                 }
             }
         }

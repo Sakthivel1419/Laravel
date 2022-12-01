@@ -12,7 +12,7 @@ class DashboardController extends Controller
         if(Auth::user()->role == 2) {
             $product_data = Product::join('maps','maps.company_id', '=', 'products.company_id')
                                     ->join('companies','companies.id', '=', 'maps.company_id')
-                                    ->select('products.*','companies.id as company_id','companies.name as company_name')
+                                    ->select('products.*','companies.id as company_id','companies.name as company_name','companies.deleted_at as deleted_at')
                                     ->where('maps.user_id',Auth::user()->id)
                                     ->get();
 
@@ -32,7 +32,7 @@ class DashboardController extends Controller
 
             $product_data  = DB::table('products')
                         ->join('companies', 'companies.id', '=', 'products.company_id')
-                        ->select('products.*','companies.id as company_id','companies.name as company_name')
+                        ->select('products.*','companies.id as company_id','companies.name as company_name','companies.deleted_at as deleted_at')
                         ->get();
 
             $max_price =  DB::table('products')

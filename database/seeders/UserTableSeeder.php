@@ -16,7 +16,7 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         User::create([
-            'name' => 'Sakthi',
+            'name' => 'sakthi',
             'email' => 'sakthi@gmail.com',
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt('sakthi@123'),
