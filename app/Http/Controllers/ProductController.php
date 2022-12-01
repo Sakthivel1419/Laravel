@@ -15,12 +15,17 @@ class ProductController extends Controller
 
 
             $product = Product::join('maps','maps.company_id', '=', 'products.company_id')
+                            ->join('companies','companies.id', '=', 'maps.company_id')
+                            ->select('products.*','companies.id as company_id','companies.name as company_name','companies.deleted_at as deleted_at')
                             ->where( 'maps.user_id',Auth::user()->id)
                             ->get();
             return view('Products.product',['product' => $product]);
 
         } else {
-            $product = Product::all();
+            $product = Product::join('companies','companies.id', '=', 'products.company_id')
+                                ->select('products.*','companies.deleted_at as deleted_at','companies.name as company_name')
+                                ->orderBy('id','asc')
+                                ->get();
             $company = Company::all();
             return view('Products.product',['product' => $product,'company' => $company]);
         }
@@ -52,31 +57,41 @@ class ProductController extends Controller
         return $data;
     }
 
-    public function update(Request $request,$id) {
+    public function update(Request $request) {
 
-        // $request->validate([
-        //     'name' => 'required',
-        //     'price' => 'required',
-        //     'quantity' => 'required',
-        //     'company_id' => 'required'
-        // ]);
-        // $company = Company::all();
-        // $company->name = $request->name;
-        // $company->save();
+        $product_id = $request->id;
 
-        // $product_id = $request->id;
-        // dd($product_id);
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'company_id' => 'required'
+        ]);
+        
  
-        $product = Product::find($id);
-        // dd($request);
-        $product->company_id = $request->company_id;
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->quantity = $request->quantity;
+        $product = Product::find($product_id);
+        $product->company_id = $request->input('company_id');
+        $product->name = $request->input('name');
+        $product->price = $request->input('price');
+        $product->quantity = $request->input('quantity');
 
         $product->update();
 
-        return redirect('/products');
+        // return redirect('/products');
 
+    }
+
+    public function delete($id) {
+        $prod = Product::find($id);
+
+        $prod->delete();
+
+    }
+
+    public function restore($id) {
+        $prod = Product::withTrashed()->find($id);
+        $prod->restore();
+
+        return redirect('/products');
     }
 }

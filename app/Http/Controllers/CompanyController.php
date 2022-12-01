@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -47,5 +48,44 @@ class CompanyController extends Controller
         // else {
         //     return back()->with("failed", "Registration failed. Try again.");
         // }
+    }
+
+    public function edit(Request $request) {
+        $data['companies'] = Company::where('id',$request->id)->first();
+        return $data;
+    }
+
+    public function update(Request $request) {
+        $company_id = $request->id;
+
+        $request->validate([
+            'name' => 'required',
+            'no_of_emp' => 'required'
+        ]);
+        
+        $company = Company::find($company_id);
+        $company->name = $request->input('name');
+        $company->no_of_emp = $request->input('no_of_emp');
+        $company->update();
+    }
+
+    public function delete($id) {
+        $com = Company::find($id);
+        // if(!empty($com)){
+        //     $prod = Product::where('company_id',$id)->get();
+        //     foreach($prod as $value) {
+        //         $value->company_id = 0;
+        //         $value->update();
+        //     }
+
+        // }
+        $com->delete();
+    }
+
+    public function restore($id) {
+        $com = Company::withTrashed()->find($id);
+        $com->restore();
+
+        return redirect('/company');
     }
 }

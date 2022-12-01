@@ -38,15 +38,18 @@
                                     <div class="col-7 col-lg-6" style="display: block">
                                         <strong class="mb-1 clearfix d-block">{{ $user->name }}</strong>
 
-                                        <ul id="listUse" data-user_id="{{ $user->id }}" class="accounts_list list-group listUser connected-selected list-group-sm ui-sortable">
-                                            
+                                        <ul id="listUse" data-user_id="{{ $user->id }}" class="accounts_list list-group listUser  connected-selected list-group-sm ui-sortable">
+
                                             @foreach($map as $key => $mapValue)
                                                 @if($mapValue->user_id == $user->id)
-                                                <li class="list-group-item ui-sortable-handle" data-company_id="{{ $mapValue->company_id }}">
+                                                <li class="list-group-item ui-sortable-handle list1"  data-company_id="{{ $mapValue->company_id }}">
                                                     {{ $mapValue['company']['name'] }}
                                                 </li>
                                                 @endif
                                             @endforeach
+
+                                            {{-- <input type="hidden" id="checkId_{{ $user->id }}"> --}}
+
 
                                         </ul>
                                     </div> 
@@ -81,8 +84,25 @@ $('.verticals-sortable li').draggable({
 });
 
 $('.listUser').droppable({
+    
     drop : function (event, ui) {
-        $(this).append(ui.draggable.clone()).children().appendTo(this);
+        var companyId = ui.draggable.data('company_id');
+        var dropcomId = [];
+        var i=0;
+
+        $(this).find('.list-group-item').each(function () {
+            dropcomId[i] = $(this).data('company_id');
+            i++;
+        });
+        
+        var data =dropcomId.includes(companyId);
+        
+        if (!data) {
+            $(this).append(ui.draggable.clone()).children().appendTo(this); 
+        }
+        else {
+            alert("Already exist");
+        }
 
     }
 });

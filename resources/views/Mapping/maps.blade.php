@@ -275,3 +275,62 @@
                 </div>
             </form>          
         </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- EXIST DATA --}}
+
+$('.listUser').droppable({
+    
+    drop : function (event, ui) {
+        var companyId = ui.draggable.data('company_id');
+        var dropcomId = [];
+        // var flag = false;
+        var i=0;
+        $(this).find('.list-group-item').each(function () {
+            dropcomId[i] = $(this).data('company_id');
+            i++;
+        });
+        // $("#checkId_"+userid).val(dropcomId.join(","));
+        // empty =  $("#checkId_"+userid).val();
+
+
+        var data =dropcomId.includes(companyId);
+
+        
+        // console.log(dropcomId);
+        // console.log(data);
+
+        // $(this).append(ui.draggable.clone()).children().appendTo(this);
+        // console.log($(ui.draggable.data('company_id'))[0]);
+        
+        if (!data) {
+            $(this).append(ui.draggable.clone()).children().appendTo(this);
+
+            // dropcomId.push($(ui.draggable.data('company_id'))[0]);
+
+            // $("#checkId_"+userid).val('');
+            // $("#checkId_"+userid).val(dropcomId.join(","));
+           
+        }
+
+        
+        // console.log(dropcomId.join(","));
+        //  console.log(empty);
+        // console.log(userid);
+
+    }
+});
